@@ -1,6 +1,6 @@
 import gravity from '../../lib/loaders/gravity';
 import delta from '../../lib/loaders/delta';
-import { sortBy, first, forEach, clone } from 'lodash';
+import { sortBy, first, omit } from 'lodash';
 import blacklist from '../../lib/artist_blacklist';
 
 export const featuredFair = () => {
@@ -35,8 +35,6 @@ export const iconicArtists = () => {
     n: 9,
     name: 'artist_search_2t',
   }).then((trending) => {
-    const clonedTrending = clone(trending);
-    forEach(blacklist, (id) => delete clonedTrending[id]);
-    return clonedTrending;
+    return omit(trending, blacklist);
   });
 };
