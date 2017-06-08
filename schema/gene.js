@@ -99,10 +99,14 @@ const GeneType = new GraphQLObjectType({
         sample: {
           type: GraphQLInt,
         },
+        min_career_stage: {
+          type: GraphQLInt,
+          defaultValue: 50,
+        },
       },
       resolve: ({ id }, options) => {
         return gravity(`artists/trending`, {
-          gene: id,
+          gene_id: id,
         }).then(artists => {
           if (_.has(options, "sample")) return _.take(_.shuffle(artists), options.sample)
           return artists
